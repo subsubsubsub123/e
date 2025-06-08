@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Shopping List</title>
+</head>
+<body>
+    <h1>Shopping List</h1>
+    <form action="/add" method="post" th:object="${item}">
+        <input type="text" th:field="*{name}" placeholder="Item Name" required />
+        <input type="number" th:field="*{quantity}" placeholder="Quantity" required />
+        <label>
+            <input type="checkbox" th:field="*{purchased}" /> Purchased
+        </label>
+        <button type="submit">Add Item</button>
+    </form>
+
+    <ul>
+        <li th:each="item : ${items}">
+            <span th:text="${item.name}">Item</span> - 
+            <span th:text="${item.quantity}">Qty</span> - 
+            <span th:text="${item.purchased} ? 'Yes' : 'No'">Purchased</span>
+            <a th:href="@{'/delete/' + ${item.id}}">Delete</a>
+        </li>
+    </ul>
+</body>
+</html>
